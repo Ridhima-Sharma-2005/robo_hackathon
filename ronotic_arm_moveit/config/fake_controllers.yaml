@@ -1,0 +1,21 @@
+controller_list:
+  - name: fake_arm_group_controller
+    type: $(arg fake_execution_type)
+    joints:
+      - Revolute_42
+      - Revolute_43
+      - Revolute_4
+      - Revolute_5
+      - Revolute_24
+  - name: fake_hand_controller
+    type: $(arg fake_execution_type)
+    joints:
+      - Revolute_8
+      - Revolute_31
+      - Revolute_26
+      - Revolute_44
+initial:  # Define initial robot poses per group
+  - group: arm_group
+    pose: horizontal_state
+  - group: hand
+    pose: arm_close

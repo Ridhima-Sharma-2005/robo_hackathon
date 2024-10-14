@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="robot">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="arm_group">
+        <joint name="Revolute_42"/>
+        <joint name="Revolute_43"/>
+        <joint name="Revolute_4"/>
+        <joint name="Revolute_5"/>
+        <joint name="Revolute_24"/>
+    </group>
+    <group name="hand">
+        <joint name="Revolute_44"/>
+        <joint name="Revolute_26"/>
+        <joint name="Rigid_25"/>
+        <joint name="Revolute_31"/>
+        <joint name="Revolute_8"/>
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="horizontal_state" group="arm_group">
+        <joint name="Revolute_24" value="-0.2085"/>
+        <joint name="Revolute_4" value="1.0379"/>
+        <joint name="Revolute_42" value="0.417"/>
+        <joint name="Revolute_43" value="2.2519"/>
+        <joint name="Revolute_5" value="2.2612"/>
+    </group_state>
+    <group_state name="straight_pose" group="arm_group">
+        <joint name="Revolute_24" value="-0.2363"/>
+        <joint name="Revolute_4" value="1.0379"/>
+        <joint name="Revolute_42" value="0.417"/>
+        <joint name="Revolute_43" value="0.7321"/>
+        <joint name="Revolute_5" value="2.6319"/>
+    </group_state>
+    <group_state name="pick_object_pose" group="arm_group">
+        <joint name="Revolute_24" value="0.746"/>
+        <joint name="Revolute_4" value="0"/>
+        <joint name="Revolute_42" value="2.5669"/>
+        <joint name="Revolute_43" value="1.6588"/>
+        <joint name="Revolute_5" value="3.8551"/>
+    </group_state>
+    <group_state name="lift_object" group="arm_group">
+        <joint name="Revolute_24" value="0.746"/>
+        <joint name="Revolute_4" value="0"/>
+        <joint name="Revolute_42" value="2.5669"/>
+        <joint name="Revolute_43" value="1.0657"/>
+        <joint name="Revolute_5" value="3.7995"/>
+    </group_state>
+    <group_state name="opposite" group="arm_group">
+        <joint name="Revolute_24" value="0.746"/>
+        <joint name="Revolute_4" value="0"/>
+        <joint name="Revolute_42" value="-0.2317"/>
+        <joint name="Revolute_43" value="1.0657"/>
+        <joint name="Revolute_5" value="3.7995"/>
+    </group_state>
+    <group_state name="place_object" group="arm_group">
+        <joint name="Revolute_24" value="0.746"/>
+        <joint name="Revolute_4" value="0"/>
+        <joint name="Revolute_42" value="-0.2317"/>
+        <joint name="Revolute_43" value="1.7144"/>
+        <joint name="Revolute_5" value="3.7995"/>
+    </group_state>
+    <group_state name="arm_close" group="hand">
+        <joint name="Revolute_26" value="0.2765"/>
+        <joint name="Revolute_31" value="0.0317"/>
+        <joint name="Revolute_44" value="0"/>
+        <joint name="Revolute_8" value="-0.236"/>
+    </group_state>
+    <group_state name="arm-open" group="hand">
+        <joint name="Revolute_26" value="0.2765"/>
+        <joint name="Revolute_31" value="0.0317"/>
+        <joint name="Revolute_44" value="0"/>
+        <joint name="Revolute_8" value="0.2051"/>
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="hand_ee" parent_link="Gripper_Base.step_1" group="hand"/>
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="Arm_01.step_1" link2="Arm_02.step_1" reason="Adjacent"/>
+    <disable_collisions link1="Arm_01.step_1" link2="Arm_03.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_01.step_1" link2="Gripper.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_01.step_1" link2="Gripper_Base.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_01.step_1" link2="Part_1_gear_2.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_01.step_1" link2="Part_2_gear_2.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_01.step_1" link2="Servo_motor_micro_9g.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_01.step_1" link2="Waist.step_1" reason="Adjacent"/>
+    <disable_collisions link1="Arm_01.step_1" link2="robot_Gripper.step1_v1_1" reason="Never"/>
+    <disable_collisions link1="Arm_02.step_1" link2="Arm_03.step_1" reason="Adjacent"/>
+    <disable_collisions link1="Arm_02.step_1" link2="Gripper.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_02.step_1" link2="Gripper_Base.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_02.step_1" link2="Part_1_gear_2.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_02.step_1" link2="Part_2_gear_2.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_02.step_1" link2="Servo_motor_micro_9g.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_02.step_1" link2="Waist.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_02.step_1" link2="robot_Gripper.step1_v1_1" reason="Never"/>
+    <disable_collisions link1="Arm_03.step_1" link2="Gripper.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_03.step_1" link2="Gripper_Base.step_1" reason="Adjacent"/>
+    <disable_collisions link1="Arm_03.step_1" link2="Part_1_gear_2.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_03.step_1" link2="Part_2_gear_2.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_03.step_1" link2="Servo_motor_micro_9g.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_03.step_1" link2="Waist.step_1" reason="Never"/>
+    <disable_collisions link1="Arm_03.step_1" link2="robot_Gripper.step1_v1_1" reason="Never"/>
+    <disable_collisions link1="Gripper.step_1" link2="Part_1_gear_2.step_1" reason="Adjacent"/>
+    <disable_collisions link1="Gripper.step_1" link2="Part_2_gear_2.step_1" reason="Never"/>
+    <disable_collisions link1="Gripper_Base.step_1" link2="Part_1_gear_2.step_1" reason="Default"/>
+    <disable_collisions link1="Gripper_Base.step_1" link2="Part_2_gear_2.step_1" reason="Adjacent"/>
+    <disable_collisions link1="Gripper_Base.step_1" link2="Servo_motor_micro_9g.step_1" reason="Adjacent"/>
+    <disable_collisions link1="Gripper_Base.step_1" link2="Waist.step_1" reason="Never"/>
+    <disable_collisions link1="Part_1_gear_2.step_1" link2="Part_2_gear_2.step_1" reason="Default"/>
+    <disable_collisions link1="Part_1_gear_2.step_1" link2="Servo_motor_micro_9g.step_1" reason="Adjacent"/>
+    <disable_collisions link1="Part_1_gear_2.step_1" link2="Waist.step_1" reason="Never"/>
+    <disable_collisions link1="Part_2_gear_2.step_1" link2="Servo_motor_micro_9g.step_1" reason="Never"/>
+    <disable_collisions link1="Part_2_gear_2.step_1" link2="Waist.step_1" reason="Never"/>
+    <disable_collisions link1="Part_2_gear_2.step_1" link2="robot_Gripper.step1_v1_1" reason="Adjacent"/>
+    <disable_collisions link1="Servo_motor_micro_9g.step_1" link2="Waist.step_1" reason="Never"/>
+    <disable_collisions link1="Waist.step_1" link2="base_link" reason="Adjacent"/>
+</robot>

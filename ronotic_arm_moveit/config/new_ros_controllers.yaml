@@ -1,0 +1,19 @@
+controller_list:
+  - name: robot_arm_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: true
+    joints:
+      - Revolute_42
+      - Revolute_43
+      - Revolute_4
+      - Revolute_5
+      - Revolute_24
+  - name: hand_ee_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    joints:
+      - Revolute_8
+      - Revolute_31
+      - Revolute_26
+      - Revolute_44
